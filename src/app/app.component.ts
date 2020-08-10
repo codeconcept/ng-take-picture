@@ -21,6 +21,7 @@ export class AppComponent implements OnDestroy {
   imageFile: File;
   fileUploadSub: Subscription;
   blobSub: Subscription;
+  pleaseWait = false;
 
   constructor(private imageService: ImageService) {}
 
@@ -73,15 +74,18 @@ export class AppComponent implements OnDestroy {
   }
 
   upload() {
+    this.pleaseWait = true;
     const formData: FormData = new FormData();
     //!\ Strapi expect files (plural!)
     formData.append('files', this.imageFile, this.imageFile.name);
     this.fileUploadSub = this.imageService.uploadImage(formData).subscribe(
       (imageData: any[]) => {
         console.log('imageData', imageData);
+        this.pleaseWait = false;
       },
       (err) => {
         console.error('AppComponent | upload() | err', err);
+        this.pleaseWait = false;
       }
     );
   }

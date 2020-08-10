@@ -1,27 +1,35 @@
-<div style="text-align:center">
+<div style="text-align: center;">
   <h1>
     Photographier
   </h1>
 
   <div>
-    <webcam [height]="500" [width]="500" [trigger]="triggerObservable" (imageCapture)="handleImage($event)"
-            [videoOptions]="videoOptions"
-            [imageQuality]="1"
-            (initError)="handleInitError($event)"
+    <webcam
+      [height]="500"
+      [width]="500"
+      [trigger]="triggerObservable"
+      (imageCapture)="handleImage($event)"
+      [videoOptions]="videoOptions"
+      [imageQuality]="1"
+      (initError)="handleInitError($event)"
     ></webcam>
-    <br/>
-    <button class="actionBtn" (click)="triggerSnapshot();">Prendre une photo</button>
+    <br />
+    <button class="actionBtn" (click)="triggerSnapshot()">
+      Prendre une photo
+    </button>
   </div>
 </div>
 
 <div class="snapshot" *ngIf="webcamImage">
   <h2>C'est dans la boîte :)</h2>
-  <img [src]="webcamImage.imageAsDataUrl"/>
-  <button class="actionBtn" (click)="upload();">sauvegarder cette photo</button>
-
+  <img [src]="webcamImage.imageAsDataUrl" />
+  <button class="actionBtn" (click)="upload()">sauvegarder cette photo</button>
+  <span *ngIf="pleaseWait">
+    <img src="assets/images/spinner-pink.gif" alt="spinner" class="spinner" />
+  </span>
 </div>
 
 <h4 *ngIf="errors.length > 0">Messages:</h4>
 <ul *ngFor="let error of errors">
-  <li>{{error | json}}</li>
+  <li>{{ error | json }}</li>
 </ul>
