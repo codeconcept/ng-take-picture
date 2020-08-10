@@ -19,7 +19,14 @@ export class MemberFormComponent implements OnInit {
       name: ['', Validators.required],
       firstName: ['', Validators.required],
       dob: [''],
-      imageName: this.imageName
+      dateOfSubscription: [''],
+      imageName: this.imageName,
+      address: this.fb.group({
+        street: [''],
+        streetComplement: [''],
+        zip: [''],
+        town: [''],
+      }),
     });
   }
 
