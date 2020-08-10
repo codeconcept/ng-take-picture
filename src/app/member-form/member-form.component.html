@@ -17,6 +17,7 @@
   /><br />
   <label for="dob">Date de naissance</label><br />
   <dp-date-picker
+    id="dob"
     formControlName="dob"
     [config]="datePickerConfig"
     placeholder="Date de naissance"
@@ -24,9 +25,10 @@
   ><br />
   <label for="dob">Date de souscription</label><br />
   <dp-date-picker
+    id="dateOfSubscription"
     formControlName="dateOfSubscription"
     [config]="datePickerConfig"
-    placeholder="Date de naissance"
+    placeholder="Date de souscription"
   ></dp-date-picker>
   <div formGroupName="address">
     <label for="street">Rue</label><br />
