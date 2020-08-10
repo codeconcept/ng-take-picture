@@ -19,6 +19,7 @@ export class AppComponent implements OnDestroy {
   // latest snapshot
   public webcamImage: WebcamImage = null;
   imageFile: File;
+  imageHash: string;
   fileUploadSub: Subscription;
   blobSub: Subscription;
   pleaseWait = false;
@@ -47,7 +48,7 @@ export class AppComponent implements OnDestroy {
     this.blobSub = this.dataURItoBlob(webcamImage.imageAsBase64).subscribe(
       (blob) => {
         const imageBlob: Blob = blob;
-        const imageName: string = `${new Date().toISOString()}.jpeg`;
+        const imageName: string = `${Date.now()}.jpeg`;
         this.imageFile = new File([imageBlob], imageName, {
           type: 'image/jpeg',
         });
@@ -87,9 +88,10 @@ export class AppComponent implements OnDestroy {
       (imageData: any[]) => {
         console.log('imageData', imageData);
         this.pleaseWait = false;
+        this.imageHash = imageData[0].hash;
         this.message = 'image sauvegardée';
         this.pictureProcessed = true;
-        this.showMessage({ duration: 2000, message: 'image sauvegardée'})
+        this.showMessage({ duration: 2000, message: 'image sauvegardée' });
       },
       (err) => {
         console.error('AppComponent | upload() | err', err);
@@ -99,14 +101,16 @@ export class AppComponent implements OnDestroy {
   }
 
   showMessage(options) {
-    setTimeout( () => {
+    setTimeout(() => {
       this.message = '';
     }, options.duration);
   }
 
   togglePreviewVisibility() {
     this.isPreviewVisible = !this.isPreviewVisible;
-    this.togglePreviewMessage = this.isPreviewVisible ? 'prévisualisation activée' : 'prévisualisation désactivée'
+    this.togglePreviewMessage = this.isPreviewVisible
+      ? 'prévisualisation activée'
+      : 'prévisualisation désactivée';
   }
 
   ngOnDestroy() {

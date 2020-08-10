@@ -8,9 +8,10 @@ import { DpDatePickerModule } from 'ng2-date-picker';
 
 import { AppComponent } from './app.component';
 import { MemberFormComponent } from './member-form/member-form.component';
+import { MemberDetailsComponent } from './member-details/member-details.component';
 
 @NgModule({
-  declarations: [AppComponent, MemberFormComponent],
+  declarations: [AppComponent, MemberFormComponent, MemberDetailsComponent],
   imports: [
     BrowserModule,
     WebcamModule,

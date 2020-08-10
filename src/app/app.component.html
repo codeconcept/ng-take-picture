@@ -32,7 +32,7 @@
 
   <div *ngIf="!pictureProcessed">
     <div class="snapshot" *ngIf="webcamImage">
-      <img [src]="webcamImage.imageAsDataUrl" />
+      <img [src]="webcamImage.imageAsDataUrl" /><br>  
       <button class="actionBtn" (click)="upload()">
         sauvegarder cette photo
       </button>
@@ -56,6 +56,6 @@
   <br>
   <br>
   <div *ngIf="pictureProcessed">
-    <app-member-form [imageName]="imageFile.name"></app-member-form>
+    <app-member-form [imageName]="imageHash + '.jpeg'"></app-member-form>
   </div>
 </div>

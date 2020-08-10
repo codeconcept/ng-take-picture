@@ -17,6 +17,8 @@ export class MemberFormComponent implements OnInit {
     showMultipleYearsNavigation: true,
   };
   @Input() imageName;
+  showMemberDetails = false;
+  savedMember: Member;
 
   constructor(private fb: FormBuilder, private memberService: MemberService) {}
 
@@ -40,10 +42,16 @@ export class MemberFormComponent implements OnInit {
     console.log(this.createMember.value);
     let member: Member = this.createMember.value;
     // casting strings to date
-    member = {...this.createMember.value, dob: new Date(member.dob), dateOfSubscription: new Date(member.dateOfSubscription)}
+    member = {
+      ...this.createMember.value,
+      dob: new Date(member.dob),
+      dateOfSubscription: new Date(member.dateOfSubscription),
+    };
     this.memberService.create(member).subscribe(
-      (data) => {
-        console.log('MemberFormComponent | create | data', data);
+      (savedMember: Member) => {
+        console.log('MemberFormComponent | create | member', savedMember);
+        this.showMemberDetails = true;
+        this.savedMember = savedMember;
       },
       (err) => console.error(err)
     );
