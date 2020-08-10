@@ -1,6 +1,6 @@
-<div style="text-align: center;">
+<div class="page">
   <h1>
-    Photographier
+    Nouveau membre
   </h1>
 
   <div>
@@ -29,24 +29,33 @@
       (click)="togglePreviewVisibility()"
     />
   </div>
-</div>
 
-<div *ngIf="!pictureProcessed">
-  <div class="snapshot" *ngIf="webcamImage">
-    <img [src]="webcamImage.imageAsDataUrl" />
-    <button class="actionBtn" (click)="upload()">
-      sauvegarder cette photo
-    </button>
-    <span *ngIf="pleaseWait">
-      <img src="assets/images/spinner-pink.gif" alt="spinner" class="spinner" />
-    </span>
+  <div *ngIf="!pictureProcessed">
+    <div class="snapshot" *ngIf="webcamImage">
+      <img [src]="webcamImage.imageAsDataUrl" />
+      <button class="actionBtn" (click)="upload()">
+        sauvegarder cette photo
+      </button>
+      <span *ngIf="pleaseWait">
+        <img
+          src="assets/images/spinner-pink.gif"
+          alt="spinner"
+          class="spinner"
+        />
+      </span>
+    </div>
+
+    <h4 *ngIf="errors.length > 0">Messages:</h4>
+    <ul *ngFor="let error of errors">
+      <li>{{ error | json }}</li>
+    </ul>
   </div>
-
-  <h4 *ngIf="errors.length > 0">Messages:</h4>
-  <ul *ngFor="let error of errors">
-    <li>{{ error | json }}</li>
-  </ul>
-</div>
-<div class="message">
-  {{ message }}
+  <div class="message">
+    {{ message }}
+  </div>
+  <br>
+  <br>
+  <div *ngIf="pictureProcessed">
+    <app-member-form [imageName]="imageFile.name"></app-member-form>
+  </div>
 </div>
